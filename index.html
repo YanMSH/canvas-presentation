@@ -22,35 +22,35 @@
 					<p>A special element for drawing animations and graphics with JavaScript</p></section>
 				<section><h3>Examples</h3>
 					<section> 
-						<div class="r-hstack">
-							<img src="./assets/js-chart2.png" alt="">
-							<img src="./assets/js-chart.png" alt="">
-						</div>
+						<div><img src="./assets/charts.png" alt="" width="75%" height="75%"></div>
 						Charts
 					</section>
 					<section>
-						<div><img src="./assets/3d-graphics.jpg" alt="" width="55%" height="55%"></div>
+						<div><img src="./assets/3d.jpg" alt="" width="75%" height="75%"></div>
 						3D-graphics
 					</section>
 					<section>
+						<div><img src="./assets/game.png" alt="" width="75%" height="75%"></div>
+						Gamedev
+					</section>
+					<section>
+						<div><img src="./assets/portfolio.png" alt="" width="75%" height="75%"></div>
+						Impressive portfolios
+					</section>
+					<section>
 						<div><img src="./assets/clock.png" alt=""></div>
-						Even cool-looking clock from the old Internet
+						Cool-looking clock from the old Internet
 					</section>
 					<section>
 						<div class="r-hstack">
 							<img src="./assets/google1.png" alt="">
-							<img src="./assets/google2.png" alt="">
-							
 						</div>
-						Google Maps and Docs
+						Google Maps
 					</section>
-					<section><img src="./assets/portfolio.png" alt="">
-						3D <a href="https://bruno-simon.com/"> portfolio</a>
+					<section>
+						<div><img src="./assets/algos.png" alt=""></div>
+						Algorithms visualization
 					</section>
-				</section>
-				<section>
-					<h3>Visualization</h3>
-					<img src="./assets/algos.png" alt="">
 				</section>
 				<section>
 					<h4>Quick start</h4>
@@ -59,23 +59,135 @@
 						<p class="fragment">- No config files</p>
 						<p class="fragment">- No npm packages</p>
 						<p class="fragment">- No extra software</p>
-						<p class="fragment">+ Only HTML and JS</p>
+						<p class="fragment">+ Only &lt;canvas&gt; tag in your HTML</p>
 					</section>
-					<section><h5>Step 1</h5>
-						<img src="./assets/step1.png" alt="">
+					<section><h5>Step 1 (index.html)</h5>
+						<div class="r-stack">
+							<img class="fragment" src="./assets/step1doc.png" alt="">
+							<img class="fragment" src="./assets/step1doctype.png" alt="">
+							
+						</div>
 					</section>
 					<section>
-						<h5>Step 2</h5>
-						<img src="./assets/step2.png" alt="">
+						<h5>Step 2 (index.html)</h5>
+						<div><img class="fragment" src="./assets/step1template.png" alt=""></div>	
 					</section>
-					<section><h5>Step 3</h5>
-					<img src="./assets/step3.png" alt="">
+					<section><h5>Step 3 (script.js)</h5>
+						<pre class="fragment"><code>const canvas = document.getElementById('myCanvas');</code></pre>
+						<pre class="fragment"><code>const context = canvas.getGontext('2d');</code></pre>
+						<div class="fragment"><img src="./assets/step3.png" alt=""></div>
 					</section>
 				</section>
 				<section><h4>Figures</h4>
-					<section><h5>Rectangle</h5><img src="./assets/rectangle.png" alt="" height="160%" width="160%"></section>
-					<section><h5>Circle</h5><img src="./assets/circle.png" alt=""></section>
-					<section><h5>Line</h5><img src="./assets/line.png" alt=""></section>
+					<section>
+						<h5>Rectangle</h5>
+						<pre class="fragment"><code>context.fillStyle = 'red';</code></pre>
+						<pre class="fragment"><code>context.fillRect(10, 10, 50, 100);</code></pre>
+						<div class="fragment"><img src="./assets/figure1.png" alt=""></div>
+					</section>
+					<section>
+						<h5>Circle</h5>
+						<pre ><code class="fragment">context.fillStyle = 'blue';</code></pre>
+						<pre ><code class="fragment">context.arc(85, 50, 15, 0, Math.PI * 2);</code></pre>
+						<pre ><code class="fragment">context.fill();</code></pre>
+						<div class="fragment"><img src="./assets/figure2.png" alt=""></div>
+					</section>
+					<section>
+						<h5>Line</h5>
+						<pre><code class="fragment">context.moveTo(125, 20);</code></pre>
+						<pre><code class="fragment">context.strokeStyle = 'green';</code></pre>
+						<pre><code class="fragment">context.lineTo(125, 100);</code></pre>
+						<pre><code class="fragment">context.stroke();</code></pre>
+						<div class="fragment"><img src="./assets/figure3.png" alt=""></div>
+					</section>
+				</section>
+				<section>
+					<h4>Diving deeper</h4>
+					<section>
+						<div class="r-stack">
+							<pre class="fragment">
+								<code data-trim>
+									const canvas = document.getElementById('myCanvas');
+									const context = canvas.getGontext('2d');
+								</code>
+								<code data-trim>
+									canvas.width = window.innerWidth;
+								canvas.height = window.innerHeight;
+							</code>
+							<code data-trim>
+								let count = 0;
+								const scale = 10;
+							</code></pre>
+							<pre class="fragment fade-out current-visible"><code class="r-stretch" data-trim>
+								function draw() {
+									let angle = count * 0.1;
+									let radius = scale * Math.sqrt(count);
+									let positionX = radius * Math.sin(angle) * canvas.width / 2;
+									let positionY = radius * Math.cos(angle) * canvas.height / 2;
+	
+									context.fillStyle = 'gold';
+									context.strokeStyle = 'black';
+									context.beginPath();
+									context.arc(positionX, positionY, 20, 0, Math.PI * 2);
+									context.closePath();
+									context.fill();
+									context.stroke();
+									
+									count++
+								}
+							</code></pre>
+							<pre class="fragment">
+								<code data-trim>
+									function animate() {
+										draw();
+										if (count > 1000){
+											return;
+										}
+										window.requestAnimationFrame(animate);
+									}
+									
+									animate();
+								</code>
+							</pre>
+						</div>
+					</section>
+					<section>
+						<img src="./assets/flower.png" alt="" height="60%" width="60%">
+					</section>
+				</section>
+				<section>
+					<h4>My implementation</h4>
+					<section>
+						<div class="r-hstack">
+							<img src="./assets/myform.png" alt="">
+							<img src="./assets/myform-code.png" alt="">
+						</div>
+						Custom pattern form
+					</section>
+						<section>
+							<div><img src="./assets/myrandom-code.png" alt=""></div>
+							Randomiser
+						</section>
+						<section>
+							<div><img src="./assets/mydraw-code.png" alt=""></div>
+							Coefficients from localStorage
+						</section>
+						<section>
+							<div class="r-hstack">
+								<img src="./assets/myflower1.png" alt="">
+								<img src="./assets/myflower2.png" alt="">
+								<img src="./assets/myflower3.png" alt="">
+							</div>
+							Randomized patterns
+						</section>
+				</section>
+				<section>
+					<h5>Check this out</h5>
+					<p><a href="https://yanmsh.github.io/canvas-playground/">My canvas thing</a></p>
+					<p><a href="https://github.com/YanMSH/canvas-playground">Source code</a></p>
+				</section>
+				<section>
+					<h3>Thanks for watching!</h3>
 				</section>
 			</div>
 		</div>
